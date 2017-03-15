@@ -98,5 +98,5 @@ bot.on('start', function() {
 //task 3: identify only the messages that are typed and remove all the clutter of the presence in the application
 //task 4: do a request to api.ai with the text to see what happens
 bot.on('message', function(data) {
-	console.log(data);
+	//console.log(data);
 });

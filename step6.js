@@ -195,14 +195,14 @@ function generateMeme(channel,status) {
 	if(typeof(status['intents']['meme_start'])=='undefined') {
 		return;	
 	}
-	
+	console.log(status);
 	
 	//multiple ways to get the meme now, catch for both.
 	var meme_type = status['parameters']['meme_type'];
-	var meme_top_line = status['parameters']['top_line'];
-	var meme_bottom_line = status['parameters']['bottom_line'];
+	var meme_top_line = status['parameters']['meme_top_line'];
+	var meme_bottom_line = status['parameters']['meme_bottom_line'];
 	var url = "http://version1.api.memegenerator.net/Instance_Create?username="+variables.meme_generator.username+"&password="+variables.meme_generator.password+"&languageCode=en&generatorID="+meme_type+"&text0="+meme_top_line+"&text1="+meme_bottom_line;
-
+	console.log(url);
 	
 	request.get(
 		url,
