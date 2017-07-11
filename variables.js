@@ -1,8 +1,8 @@
 module.exports = {
-	api_ai_key: "{insert_api_ai_key_here}",
-	slack_bot_key: "{insert_slack_bot_key_here}",
+	api_ai_key: "9744884a92de41aebd676783eaefa28f",
+	slack_bot_key: "xoxb-210491653552-qzGMjw3124tdfxN5301xNJuE",
 	meme_generator: {
-		username: "{insert_meme_generator_username_here}",
-		password: "{insert_meme_generator_password_here}"
+		username: "johnharden0",
+		password: "password1234!"
 	}
 };

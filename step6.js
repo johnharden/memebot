@@ -201,6 +201,30 @@ function generateMeme(channel,status) {
 	var meme_type = status['parameters']['meme_type'];
 	var meme_top_line = status['parameters']['meme_top_line'];
 	var meme_bottom_line = status['parameters']['meme_bottom_line'];
+	
+	//post to the memegenerator website and get the content
+	url = 'https://api.imgflip.com/caption_image';
+	body = 
+		'template_id='+meme_type+
+		'&username='+variables.meme_generator.username+
+		'&password='+variables.meme_generator.password+
+		'&text0='+meme_top_line+
+		'&text1='+meme_bottom_line+
+		'&max_font_size=100'
+	
+	
+	request.post({
+		headers: {'content-type' : 'application/x-www-form-urlencoded'},
+		url:     url,
+		body:    body,
+	}, function(error, response, body){
+		var r = JSON.parse(body);
+		console.log(r);
+	});
+
+	
+	/*
+	Meme generator is down, utilizing an alternative
 	var url = "http://version1.api.memegenerator.net/Instance_Create?username="+variables.meme_generator.username+"&password="+variables.meme_generator.password+"&languageCode=en&generatorID="+meme_type+"&text0="+meme_top_line+"&text1="+meme_bottom_line;
 	console.log(url);
 	
@@ -215,4 +239,5 @@ function generateMeme(channel,status) {
 			}
 		}
 	);
+	*/
 }

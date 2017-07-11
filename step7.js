@@ -200,10 +200,57 @@ function generateMeme(channel,status) {
 	var meme_type = status['parameters']['meme_type'];
 	var meme_top_line = status['parameters']['meme_top_line'];
 	var meme_bottom_line = status['parameters']['meme_bottom_line'];
-	var url = "http://version1.api.memegenerator.net/Instance_Create?username="+variables.meme_generator.username+"&password="+variables.meme_generator.password+"&languageCode=en&generatorID="+meme_type+"&text0="+meme_top_line+"&text1="+meme_bottom_line;
-
+	var url = "https://api.imgflip.com/caption_image"
+	
+	/*
+	username: johnharden0
+	password: password1234!
+	*/
+	
+	console.log(url);
 	//post to the memegenerator website and get the content
-	request.get(
+	url = 'https://api.imgflip.com/caption_image';
+	body = 
+		'template_id='+meme_type+
+		'&username='+variables.meme_generator.username+
+		'&password='+variables.meme_generator.password+
+		'&text0='+meme_top_line+
+		'&text1='+meme_bottom_line+
+		'max_font_size=100'
+	
+	
+	request.post({
+		headers: {'content-type' : 'application/x-www-form-urlencoded'},
+		url:     url,
+		body:    body,
+	}, function(error, response, body){
+		var r = JSON.parse(body);
+		console.log(r);
+		var params = {
+			icon_emoji: bot_params.slack_params.default_params.icon_emoji,
+			attachments: [
+				{
+					title: 'Your meme sir.',
+					image_url: r.data.url,
+					"footer": ": Meme Bot",
+					"footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
+					ts: Date.now()/1000,
+					color: '#36a64f',
+				}
+			]
+		};
+
+
+		global.respond(channel,'',params);
+	});
+
+
+	
+	
+	/*
+	Freaking Meme Generator is down, creating an alternative
+	var url = "http://version1.api.memegenerator.net/Instance_Create?username="+variables.meme_generator.username+"&password="+variables.meme_generator.password+"&languageCode=en&generatorID="+meme_type+"&text0="+meme_top_line+"&text1="+meme_bottom_line;
+	request.post(
 		url,
 		function (error, response, body) {
 			//error checking and verify we get a 200 OK
@@ -211,6 +258,9 @@ function generateMeme(channel,status) {
 				
 				//parse the JSON response into an object
 				var r = JSON.parse(body);
+				
+				console.log(r);
+
 				
 				//set the params for the response; more examples of what you can do with attachments can be found here: https://api.slack.com/docs/message-attachments
 				var params = {
@@ -232,4 +282,5 @@ function generateMeme(channel,status) {
 			}
 		}
 	);
+	*/
 }
